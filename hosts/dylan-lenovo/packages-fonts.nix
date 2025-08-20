@@ -89,6 +89,18 @@
     code-cursor # Cursor AI IDE
     spotify
     powertop # Sleep & Power Managment
+    python313
+    powershell
+    gimp3-with-plugins
+    stremio
+    rustdesk-flutter
+    obsidian
+    samba
+    remmina
+    keepassxc
+    gvfs
+    openfortivpn
+    swtpm
     #waybar  # if wanted experimental next line
     #(pkgs.waybar.overrideAttrs (oldAttrs: { mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];}))
   ]) ++ [
@@ -152,7 +164,7 @@ fonts = {
 		  tumbler
   	  ];
 	
-    virt-manager.enable = false;
+    virt-manager.enable = true;
     
     #steam = {
     #  enable = true;

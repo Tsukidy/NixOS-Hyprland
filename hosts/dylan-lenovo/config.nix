@@ -125,7 +125,7 @@
   services.automatic-timezoned.enable = true; #based on IP location
   
   #https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  #time.timeZone = "Asia/Seoul"; # Set local timezone
+  #time.timeZone = "America/New_York"; # Set local timezone
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -151,6 +151,11 @@
         layout = "${keyboardLayout}";
         variant = "";
       };
+    };
+
+    samba = {
+        enable = true;
+        openFirewall = true;
     };
     
     greetd = {
@@ -328,11 +333,19 @@
   };
 
   # Virtualization / Containers
-  virtualisation.libvirtd.enable = false;
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemuOvmf = true;
+      qemuSwtpm = true;
+    };
+  };
+  programs.virt-manager.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
   virtualisation.podman = {
-    enable = false;
-    dockerCompat = false;
-    defaultNetwork.settings.dns_enabled = false;
+    enable = true;
+    dockerCompat = true;
+    defaultNetwork.settings.dns_enabled = true;
   };
 
   # OpenGL
@@ -347,6 +360,7 @@
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
+      networking.firewall.extraCommands = ''iptables -t raw -A OUTPUT -p udp -m udp --dport 137 -j CT --helper netbios-ns'';
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
